@@ -1,0 +1,20 @@
+version: '2.3'
+services:
+  pid-net:
+  
+    build: ./
+    tty: true
+    runtime: nvidia
+    ipc: host
+    shm_size: '8gb'
+    ports:
+      - "8883:8883"
+    volumes:
+      - ../:/src:cached
+      - /mnt/nas/CityScape:/mnt/nas/CityScape:cached
+      - /tmp/.X11-unix/:/tmp/.X11-unix
+    container_name: pid-net
+    network_mode: "bridge"
+    environment:
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
